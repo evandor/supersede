@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, State } from '@stencil/core';
 import { format } from '../../utils/utils';
 
 @Component({
@@ -7,26 +7,42 @@ import { format } from '../../utils/utils';
   shadow: true
 })
 export class MyComponent {
-  /**
-   * The first name
-   */
-  @Prop() first: string;
-
-  /**
-   * The middle name
-   */
+  @Prop() userid: string = "1";
   @Prop() middle: string;
-
-  /**
-   * The last name
-   */
   @Prop() last: string;
 
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
+  content: any;
+
+  timer: number;
+
+  @State() time: number = Date.now();
+
+  componentDidLoad() {
+    this.timer = window.setInterval(() => {
+      this.time = Date.now();
+    }, 1000);
   }
 
-  render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+  componentDidUnload() {
+    window.clearInterval(this.timer);
+  }
+
+  private getText(): string {
+    return format(this.userid, this.middle, this.last);
+  }
+
+  componentWillLoad() {
+    console.log ("hier2", this.userid)
+    return fetch('https://jsonplaceholder.typicode.com/todos/' + this.userid)
+      .then(response => response.json())
+      .then(data => {
+        this.content = data;
+      });
+  }
+
+  render() { 
+    const time = new Date(this.time).toLocaleTimeString();
+
+    return <div>Hello, World! I'm {this.getText()} - { time } - { this.content.title }</div>;
   }
 }

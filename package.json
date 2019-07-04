@@ -1,6 +1,6 @@
 {
-  "name": "supersede",
-  "version": "0.0.1",
+  "name": "superseded",
+  "version": "0.0.2",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -9,7 +9,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/supersede/supersede.js",
+  "unpkg": "dist/superseded/superseded.js",
   "files": [
     "dist/",
     "loader/"
