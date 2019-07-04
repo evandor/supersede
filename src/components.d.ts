@@ -9,9 +9,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface MyComponent {
+  interface SupersedeParagraph {
     'last': string;
-    'middle': string;
+    'textblock': string;
     'userid': string;
   }
 }
@@ -19,25 +19,25 @@ export namespace Components {
 declare global {
 
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  interface HTMLSupersedeParagraphElement extends Components.SupersedeParagraph, HTMLStencilElement {}
+  var HTMLSupersedeParagraphElement: {
+    prototype: HTMLSupersedeParagraphElement;
+    new (): HTMLSupersedeParagraphElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'supersede-paragraph': HTMLSupersedeParagraphElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
+  interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
     'last'?: string;
-    'middle'?: string;
+    'textblock'?: string;
     'userid'?: string;
   }
 
   interface IntrinsicElements {
-    'my-component': MyComponent;
+    'supersede-paragraph': SupersedeParagraph;
   }
 }
 
