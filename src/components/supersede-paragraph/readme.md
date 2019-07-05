@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `last`   | `last`    |             | `string` | `undefined` |
-| `middle` | `middle`  |             | `string` | `undefined` |
-| `userid` | `userid`  |             | `string` | `"1"`       |
+| Property      | Attribute     | Description | Type     | Default      |
+| ------------- | ------------- | ----------- | -------- | ------------ |
+| `path`        | `path`        |             | `string` | `undefined`  |
+| `snippetname` | `snippetname` |             | `string` | `"headline"` |
+| `userid`      | `userid`      |             | `string` | `"1"`        |
 
 
 ----------------------------------------------

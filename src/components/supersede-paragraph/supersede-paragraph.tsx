@@ -1,17 +1,19 @@
 import { Component, Prop, h, State } from '@stencil/core';
-import { format } from '../../utils/utils';
+//import { format } from '../../utils/utils';
 
 @Component({
   tag: 'supersede-paragraph',
   styleUrl: 'supersede-paragraph.css',
-  shadow: true
+  shadow: false
 })
 export class SupersedeParagraph {
   @Prop() userid: string = "1";
-  @Prop() textblock: string = "headline";
-  @Prop() last: string;
+  @Prop() snippetname: string = "headline";
+  @Prop() path: string;
 
   content: any;
+
+  readonly = true;
 
   timer: number;
 
@@ -27,24 +29,38 @@ export class SupersedeParagraph {
     window.clearInterval(this.timer);
   }
 
-  private getText(): string {
+  /*private getText(): string {
     return format(this.userid, this.textblock, this.last);
-  }
+  }*/
 
   componentWillLoad() {
-    console.log ("hier2", this.userid)
+    console.log ("loc", window.location)
+    console.log ("search", window.location.search)
     //return fetch('https://jsonplaceholder.typicode.com/todos/' + this.userid)
-    return fetch('http://localhost:6204/api/websites/'+this.userid+'/' + this.textblock)
+    this.path = window.location.pathname;
+    
+    var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname + window.location.search;
+    console.log("backendurl", backendurl);
+    return fetch(backendurl)
       .then(response => response.json())
       .then(data => {
         this.content = data;
         console.log("data", data);
+        if (this.content.token == null || this.content.token != "") {
+          console.log ("content set to read/write, token was", this.content.token)
+          this.readonly = false;
+        }
       });
   }
 
   render() { 
-    const time = new Date(this.time).toLocaleTimeString();
-
-    return <div>Hello, World! I'm {this.getText()} - { time } - { this.content.block }</div>;
+    //const time = new Date(this.time).toLocaleTimeString();
+    //return <div>Hello, World! I'm {this.getText()} - { time } - { this.content.block }</div>;
+    if (this.readonly) {
+      return <div innerHTML={this.content.block}></div>;
+    } else {
+      var code = "<a href='http://localhost:4200/websites/"+this.userid+"/"+ btoa(this.path) + "/" +this.content.id+"?name="+this.content.name+"'>"+this.content.block+"</a>"
+      return <div class='editable' innerHTML={code}></div>;
+    }
   }
 }

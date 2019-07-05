@@ -10,8 +10,8 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface SupersedeParagraph {
-    'last': string;
-    'textblock': string;
+    'path': string;
+    'snippetname': string;
     'userid': string;
   }
 }
@@ -31,8 +31,8 @@ declare global {
 
 declare namespace LocalJSX {
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
-    'last'?: string;
-    'textblock'?: string;
+    'path'?: string;
+    'snippetname'?: string;
     'userid'?: string;
   }
 
