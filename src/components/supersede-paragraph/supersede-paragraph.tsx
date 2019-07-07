@@ -46,7 +46,7 @@ export class SupersedeParagraph {
       .then(data => {
         this.content = data;
         console.log("data", data);
-        if (this.content.token == null || this.content.token != "") {
+        if (this.content.token != null && this.content.token != "") {
           console.log ("content set to read/write, token was", this.content.token)
           this.readonly = false;
         }
@@ -59,8 +59,9 @@ export class SupersedeParagraph {
     if (this.readonly) {
       return <div innerHTML={this.content.block}></div>;
     } else {
-      var code = "<a href='http://localhost:4200/websites/"+this.userid+"/"+ btoa(this.path) + "/" +this.content.id+"?name="+this.content.name+"'>"+this.content.block+"</a>"
-      return <div class='editable' innerHTML={code}></div>;
+      //var code = "<a href='http://localhost:4200/websites/"+this.userid+"/"+ btoa(this.path) + "/" +this.content.id+"?name="+this.content.name+"'>"+this.content.block+"</a>"
+      //return <input type="text" class='editable' value={this.content.block}></input>;
+      return <div innerHTML={this.content.block}></div>;
     }
   }
 }

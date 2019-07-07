@@ -9,6 +9,18 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface SupersedeH1 {
+    'class': string;
+    'path': string;
+    'snippetname': string;
+    'userid': string;
+  }
+  interface SupersedeH2 {
+    'class': string;
+    'path': string;
+    'snippetname': string;
+    'userid': string;
+  }
   interface SupersedeParagraph {
     'path': string;
     'snippetname': string;
@@ -19,17 +31,43 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLSupersedeH1Element extends Components.SupersedeH1, HTMLStencilElement {}
+  var HTMLSupersedeH1Element: {
+    prototype: HTMLSupersedeH1Element;
+    new (): HTMLSupersedeH1Element;
+  };
+
+  interface HTMLSupersedeH2Element extends Components.SupersedeH2, HTMLStencilElement {}
+  var HTMLSupersedeH2Element: {
+    prototype: HTMLSupersedeH2Element;
+    new (): HTMLSupersedeH2Element;
+  };
+
   interface HTMLSupersedeParagraphElement extends Components.SupersedeParagraph, HTMLStencilElement {}
   var HTMLSupersedeParagraphElement: {
     prototype: HTMLSupersedeParagraphElement;
     new (): HTMLSupersedeParagraphElement;
   };
   interface HTMLElementTagNameMap {
+    'supersede-h1': HTMLSupersedeH1Element;
+    'supersede-h2': HTMLSupersedeH2Element;
     'supersede-paragraph': HTMLSupersedeParagraphElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface SupersedeH1 extends JSXBase.HTMLAttributes<HTMLSupersedeH1Element> {
+    'class'?: string;
+    'path'?: string;
+    'snippetname'?: string;
+    'userid'?: string;
+  }
+  interface SupersedeH2 extends JSXBase.HTMLAttributes<HTMLSupersedeH2Element> {
+    'class'?: string;
+    'path'?: string;
+    'snippetname'?: string;
+    'userid'?: string;
+  }
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
     'path'?: string;
     'snippetname'?: string;
@@ -37,6 +75,8 @@ declare namespace LocalJSX {
   }
 
   interface IntrinsicElements {
+    'supersede-h1': SupersedeH1;
+    'supersede-h2': SupersedeH2;
     'supersede-paragraph': SupersedeParagraph;
   }
 }
