@@ -1,4 +1,6 @@
 import {  Prop, h, State, Component } from '@stencil/core';
+import Backend from '../../services/backend';
+import Replace from "../../services/replace";
 //import { format } from '../../utils/utils';
 
 @Component({
@@ -11,7 +13,7 @@ export class SupersedeH2  {
   @Prop() userid: string = "1";
   @Prop() snippetname: string = "headline";
   @Prop() path: string;
-  @Prop() class: string;
+  @Prop() cls: string;
 
   content: any;
 
@@ -20,6 +22,13 @@ export class SupersedeH2  {
   timer: number;
 
   @State() time: number = Date.now();
+
+  public backendService: Backend = new Backend();
+  public replaceService: Replace = new Replace();
+
+  clsPlusEditable() {
+    return this.cls + " editable";
+  }
 
   componentDidLoad() {
     this.timer = window.setInterval(() => {
@@ -31,26 +40,12 @@ export class SupersedeH2  {
     window.clearInterval(this.timer);
   }
 
-  edit(mouseEvent) {
-
-    var originalElement = mouseEvent.srcElement
-    var parentElement = originalElement.parentNode
-    var d = document.createElement('textarea');
-    //d.type ="text"
-    d.value=originalElement.innerHTML
-    var ctx = this;
-    d.onblur = function() {
-      ctx.sendUpdate(d.value)
-      originalElement.innerHTML= d.value
-      parentElement.replaceChild(originalElement, d);
-    }
-    d.focus();
-    parentElement.replaceChild(d, originalElement);
+  edit(mouseEvent, cls) {
+    this.replaceService.handle(this, 'textarea', mouseEvent, cls);
   }
 
   sendUpdate(text) {
     var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname ;
-    console.log("backendurl", backendurl);
     return fetch(backendurl, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin
@@ -70,19 +65,11 @@ export class SupersedeH2  {
   }
 
   componentWillLoad() {
-    console.log ("loc", window.location)
-    console.log ("search", window.location.search)
-    this.path = window.location.pathname;
-    
-    var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname + window.location.search;
-    console.log("backendurl", backendurl);
-    return fetch(backendurl)
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.snippetname))
       .then(response => response.json())
       .then(data => {
         this.content = data;
-        console.log("data", data);
         if (this.content.token != null && this.content.token != "") {
-          console.log ("content set to read/write, token was", this.content.token)
           this.readonly = false;
         }
       });
@@ -90,10 +77,10 @@ export class SupersedeH2  {
 
   render() { 
     if (this.readonly) {
-      return <h2 class={this.class} innerHTML={this.content.block}></h2>;
+      return <h2 class={this.cls} innerHTML={this.content.block}></h2>;
     } else {
-      return <h2 class={this.class}  innerHTML={this.content.block} 
-        onClick={(me) => this.edit(me)}>
+      return <h2 class={this.clsPlusEditable()} innerHTML={this.content.block}
+        onClick={(me) => this.edit(me, this.cls)}>
         </h2>;
     }
   }

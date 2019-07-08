@@ -34,20 +34,15 @@ export class SupersedeParagraph {
   }*/
 
   componentWillLoad() {
-    console.log ("loc", window.location)
-    console.log ("search", window.location.search)
     //return fetch('https://jsonplaceholder.typicode.com/todos/' + this.userid)
     this.path = window.location.pathname;
     
     var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname + window.location.search;
-    console.log("backendurl", backendurl);
     return fetch(backendurl)
       .then(response => response.json())
       .then(data => {
         this.content = data;
-        console.log("data", data);
         if (this.content.token != null && this.content.token != "") {
-          console.log ("content set to read/write, token was", this.content.token)
           this.readonly = false;
         }
       });

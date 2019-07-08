@@ -10,13 +10,13 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface SupersedeH1 {
-    'class': string;
+    'cls': string;
     'path': string;
     'snippetname': string;
     'userid': string;
   }
   interface SupersedeH2 {
-    'class': string;
+    'cls': string;
     'path': string;
     'snippetname': string;
     'userid': string;
@@ -57,13 +57,13 @@ declare global {
 
 declare namespace LocalJSX {
   interface SupersedeH1 extends JSXBase.HTMLAttributes<HTMLSupersedeH1Element> {
-    'class'?: string;
+    'cls'?: string;
     'path'?: string;
     'snippetname'?: string;
     'userid'?: string;
   }
   interface SupersedeH2 extends JSXBase.HTMLAttributes<HTMLSupersedeH2Element> {
-    'class'?: string;
+    'cls'?: string;
     'path'?: string;
     'snippetname'?: string;
     'userid'?: string;

@@ -1,5 +1,7 @@
-import { Component, Prop, h, State } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 import Backend from '../../services/backend';
+import Render from '../../services/render';
+import Replace from "../../services/replace";
 
 @Component({
   tag: 'supersede-h1',
@@ -11,48 +13,31 @@ export class SupersedeH1 {
   @Prop() userid: string = "1";
   @Prop() snippetname: string = "headline";
   @Prop() path: string;
-  @Prop() class: string;
+  @Prop() cls: string;
 
   content: any;
 
   readonly = true;
 
-  timer: number;
-
-  @State() time: number = Date.now();
-
   public backendService: Backend = new Backend();
+  public renderService: Render = new Render();
+  public replaceService: Replace = new Replace();
 
-  componentDidLoad() {
-    this.timer = window.setInterval(() => {
-      this.time = Date.now();
-    }, 1000);
+  edit(mouseEvent, cls) {
+    this.replaceService.handle(this, 'input', mouseEvent, cls);
   }
 
-  componentDidUnload() {
-    window.clearInterval(this.timer);
-  }
-
-  edit(mouseEvent) {
-
-    var originalElement = mouseEvent.srcElement
-    var parentElement = originalElement.parentNode
-    var d = document.createElement('input');
-    d.type = "text"
-    d.value = originalElement.innerHTML
-    var ctx = this;
-    d.onblur = function () {
-      ctx.sendUpdate(d.value)
-      originalElement.innerHTML = d.value
-      parentElement.replaceChild(originalElement, d);
+  stopEdit(event) {
+    console.log("keypressed", event.keyCode);
+    if (event.keyCode == 13) {
+      var body = document.getElementsByTagName("body")[0];
+      body.focus();
+      return false;
     }
-    d.focus();
-    parentElement.replaceChild(d, originalElement);
   }
 
   sendUpdate(text) {
     var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
-    console.log("backendurl", backendurl);
     return fetch(backendurl, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin
@@ -74,25 +59,27 @@ export class SupersedeH1 {
   componentWillLoad() {
     return fetch(this.backendService.getRetrieveUrl(document, window, this.snippetname))
       .then(response => response.json())
-      .then(data => {
-        this.content = data;
-        if (this.content.token != null && this.content.token != "") {
-          this.readonly = false;
-        }
-      });
+      //.then(this.process)
+      .then(data => { this.handleData(data);});
   }
 
   render() {
-    //const time = new Date(this.time).toLocaleTimeString();
-    //return <div>Hello, World! I'm {this.getText()} - { time } - { this.content.block }</div>;
+    //this.renderService.render("h1", this.content)
     if (this.readonly) {
-      return <h1 innerHTML={this.content.block}></h1>;
+      return (<h1 class={this.cls} innerHTML={this.content.block}></h1>);
     } else {
-      //var code = "<a href='http://localhost:4200/websites/"+this.userid+"/"+ btoa(this.path) + "/" +this.content.id+"?name="+this.content.name+"'>"+this.content.block+"</a>"
-      //return <input type="text" class='editable' value={this.content.block}></input>;
-      return <h1 innerHTML={this.content.block}
-        onClick={(me) => this.edit(me)}>
-      </h1>;
+      return (<h1 class="editable" innerHTML={this.content.block}
+        onClick={(me) => this.edit(me, this.cls)}
+        onKeyPress={(me) => this.stopEdit(me)}
+      >
+      </h1>);
+    }
+  }
+
+  private handleData(data) {
+    this.content = data;
+    if (this.content.token != null && this.content.token != "") {
+      this.readonly = false;
     }
   }
 }

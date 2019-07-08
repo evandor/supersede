@@ -9,7 +9,7 @@
 
 | Property      | Attribute     | Description | Type     | Default      |
 | ------------- | ------------- | ----------- | -------- | ------------ |
-| `class`       | `class`       |             | `string` | `undefined`  |
+| `cls`         | `cls`         |             | `string` | `undefined`  |
 | `path`        | `path`        |             | `string` | `undefined`  |
 | `snippetname` | `snippetname` |             | `string` | `"headline"` |
 | `userid`      | `userid`      |             | `string` | `"1"`        |
