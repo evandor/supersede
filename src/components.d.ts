@@ -22,6 +22,7 @@ export namespace Components {
     'userid': string;
   }
   interface SupersedeParagraph {
+    'cls': string;
     'path': string;
     'snippetname': string;
     'userid': string;
@@ -69,6 +70,7 @@ declare namespace LocalJSX {
     'userid'?: string;
   }
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
+    'cls'?: string;
     'path'?: string;
     'snippetname'?: string;
     'userid'?: string;

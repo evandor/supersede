@@ -37,7 +37,8 @@ export class SupersedeH1 {
   }
 
   sendUpdate(text) {
-    var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
+    //var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
+    var backendurl = 'https://supersede.skysail.io/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
     return fetch(backendurl, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin
@@ -50,7 +51,7 @@ export class SupersedeH1 {
       redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
       //body: JSON.stringify('{"content": "'+text+'"}'), // body data type must match "Content-Type" header
-      body: '{"content": "' + text + '"}'
+      body: JSON.stringify({content: text})
     })
       .then(response => response.json());
 

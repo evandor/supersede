@@ -45,7 +45,8 @@ export class SupersedeH2  {
   }
 
   sendUpdate(text) {
-    var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname ;
+    //var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname ;
+    var backendurl = 'https://supersede.skysail.io/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname ;
     return fetch(backendurl, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin

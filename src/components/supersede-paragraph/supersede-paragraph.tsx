@@ -1,5 +1,7 @@
-import { Component, Prop, h, State } from '@stencil/core';
-//import { format } from '../../utils/utils';
+import { Component, Prop, h } from '@stencil/core';
+import Backend from '../../services/backend';
+import Render from '../../services/render';
+import Replace from "../../services/replace";
 
 @Component({
   tag: 'supersede-paragraph',
@@ -10,53 +12,78 @@ export class SupersedeParagraph {
   @Prop() userid: string = "1";
   @Prop() snippetname: string = "headline";
   @Prop() path: string;
+  @Prop() cls: string;
 
   content: any;
 
   readonly = true;
 
-  timer: number;
+  public backendService: Backend = new Backend();
+  public renderService: Render = new Render();
+  public replaceService: Replace = new Replace();
 
-  @State() time: number = Date.now();
-
-  componentDidLoad() {
-    this.timer = window.setInterval(() => {
-      this.time = Date.now();
-    }, 1000);
+  edit(mouseEvent, cls) {
+    this.replaceService.handle(this, 'input', mouseEvent, cls);
   }
 
-  componentDidUnload() {
-    window.clearInterval(this.timer);
+  stopEdit(event) {
+    console.log("keypressed", event.keyCode);
+    if (event.keyCode == 13) {
+      var body = document.getElementsByTagName("body")[0];
+      body.focus();
+      return false;
+    }
   }
 
-  /*private getText(): string {
-    return format(this.userid, this.textblock, this.last);
-  }*/
+  sendUpdate(text) {
+    //var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
+    var backendurl = 'https://supersede.skysail.io/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
+    return fetch(backendurl, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'no-cors', // no-cors, cors, *same-origin
+      //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrer: 'no-referrer', // no-referrer, *client
+      //body: JSON.stringify('{"content": "'+text+'"}'), // body data type must match "Content-Type" header
+      body: JSON.stringify({content: text})
+    })
+      .then(response => response.json());
+
+  }
 
   componentWillLoad() {
-    //return fetch('https://jsonplaceholder.typicode.com/todos/' + this.userid)
-    this.path = window.location.pathname;
-    
-    var backendurl = 'http://localhost:6204/api/websites/'+this.userid+'/' + btoa(this.path) + '/' + this.snippetname + window.location.search;
-    return fetch(backendurl)
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.snippetname), {
+      headers: {
+        mode: 'cors'
+      },
+    })
       .then(response => response.json())
-      .then(data => {
-        this.content = data;
-        if (this.content.token != null && this.content.token != "") {
-          this.readonly = false;
-        }
-      });
+      //.then(this.process)
+      .then(data => { this.handleData(data);});
   }
 
-  render() { 
-    //const time = new Date(this.time).toLocaleTimeString();
-    //return <div>Hello, World! I'm {this.getText()} - { time } - { this.content.block }</div>;
+  render() {
+    //this.renderService.render("h1", this.content)
     if (this.readonly) {
-      return <div innerHTML={this.content.block}></div>;
+      return (<p class={this.cls} innerHTML={this.content.block}></p>);
     } else {
-      //var code = "<a href='http://localhost:4200/websites/"+this.userid+"/"+ btoa(this.path) + "/" +this.content.id+"?name="+this.content.name+"'>"+this.content.block+"</a>"
-      //return <input type="text" class='editable' value={this.content.block}></input>;
-      return <div innerHTML={this.content.block}></div>;
+      return (<p class="editable" innerHTML={this.content.block}
+        onClick={(me) => this.edit(me, this.cls)}
+        onKeyPress={(me) => this.stopEdit(me)}
+      >
+      </p>);
+    }
+  }
+
+  private handleData(data) {
+    this.content = data;
+    if (this.content.token != null && this.content.token != "") {
+      this.readonly = false;
     }
   }
 }

@@ -9,7 +9,8 @@ export default class Backend {
         /*if (this.userid) {
             userIdToUse = this.userid
         }*/
-        var backendurl = 'http://localhost:6204/api/websites/' + userIdToUse + '/' + btoa(pathname) + '/' + snippet + window.location.search;
+        //var backendurl = 'http://localhost:6204/api/websites/' + userIdToUse + '/' + btoa(pathname) + '/' + snippet + window.location.search;
+        var backendurl = 'https://supersede.skysail.io/api/websites/' + userIdToUse + '/' + btoa(pathname) + '/' + snippet + window.location.search;
         return backendurl;
     }
 
