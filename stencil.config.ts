@@ -9,6 +9,10 @@ if (dev) {
 
 export const config: Config = {
   namespace: 'supersede',
+  devServer: {
+    reloadStrategy: 'hmr',
+    port: 4444
+  },
   outputTargets: [
     {
       type: 'dist',
@@ -19,6 +23,7 @@ export const config: Config = {
     },
     {
       type: 'www',
+      indexHtml: 'index.html',
       serviceWorker: null // disable service workers
     }
   ],

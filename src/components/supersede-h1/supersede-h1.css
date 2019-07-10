@@ -1,5 +1,7 @@
 
-.editable {
-    border: 1px solid green;
-    cursor: crosshair;
+
+.editable:hover {
+  background-color: yellow;
+  font-size: 80px;
+  color:#DDD;
 }

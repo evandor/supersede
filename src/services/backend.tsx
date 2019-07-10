@@ -4,20 +4,11 @@ export default class Backend {
 
   backendUrl: string = EnvironmentConfigService.getInstance().get('backendUrl');
 
-  getRetrieveUrl(document: Document, window: Window, snippet: string): RequestInfo {
+  getRetrieveUrl(document: Document, window: Window, key: string): RequestInfo {
     console.log('My environment variable value:', this.backendUrl);
-    var pathname = window.location.pathname;
-    var body_userid = document.getElementsByTagName("body")[0].getAttribute("data-supersede-user-id")
-
-    var userIdToUse = body_userid;
-    /*if (this.userid) {
-        userIdToUse = this.userid
-    }*/
-    //var backendurl = 'http://localhost:6204/api/websites/' + userIdToUse + '/' + btoa(pathname) + '/' + snippet + window.location.search;
-    var backendurl = this.backendUrl + '/api/websites/' + userIdToUse + '/' + btoa(pathname) + '/' + snippet + window.location.search;
-    return backendurl;
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id")
+    return this.backendUrl + '/api/websites/' + projectId + '/' + key + window.location.search;
   }
-
 
   async get(document: Document, window: Window, snippet: string) {
     return fetch(this.getRetrieveUrl(document, window, snippet))
@@ -25,4 +16,13 @@ export default class Backend {
 
   }
 
+  getPostUrl(document: Document, window: Window, key: string) {
+    console.log('My environment variable value:', this.backendUrl);
+    var pathname = window.location.pathname;
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id")
+    var backendurl = this.backendUrl + '/api/websites/' + projectId + '/' + btoa(pathname) + '/' + key ;
+    return backendurl;
+
+   // 'https://supersede.skysail.io/api/websites/' + this.pro + '/' + btoa(window.location.pathname) + '/' + this.key;
+  }
 }

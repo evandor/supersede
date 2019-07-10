@@ -11,9 +11,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface SupersedeH1 {
     'cls': string;
-    'path': string;
-    'snippetname': string;
-    'userid': string;
+    'name': string;
   }
   interface SupersedeH2 {
     'cls': string;
@@ -23,9 +21,7 @@ export namespace Components {
   }
   interface SupersedeParagraph {
     'cls': string;
-    'path': string;
-    'snippetname': string;
-    'userid': string;
+    'key': string;
   }
 }
 
@@ -59,9 +55,7 @@ declare global {
 declare namespace LocalJSX {
   interface SupersedeH1 extends JSXBase.HTMLAttributes<HTMLSupersedeH1Element> {
     'cls'?: string;
-    'path'?: string;
-    'snippetname'?: string;
-    'userid'?: string;
+    'name'?: string;
   }
   interface SupersedeH2 extends JSXBase.HTMLAttributes<HTMLSupersedeH2Element> {
     'cls'?: string;
@@ -71,9 +65,7 @@ declare namespace LocalJSX {
   }
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
     'cls'?: string;
-    'path'?: string;
-    'snippetname'?: string;
-    'userid'?: string;
+    'key'?: string;
   }
 
   interface IntrinsicElements {
