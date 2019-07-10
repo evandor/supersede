@@ -57,11 +57,7 @@ export class SupersedeParagraph {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getRetrieveUrl(document, window, this.snippetname), {
-      headers: {
-        mode: 'cors'
-      },
-    })
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.snippetname))
       .then(response => response.json())
       //.then(this.process)
       .then(data => { this.handleData(data);});
