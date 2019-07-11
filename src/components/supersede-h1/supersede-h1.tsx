@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 import Backend from '../../services/backend';
 import Render from '../../services/render';
 import Replace from "../../services/replace";
@@ -10,8 +10,10 @@ import Replace from "../../services/replace";
 })
 export class SupersedeH1 {
 
+  @Element() el: HTMLElement;
+
   @Prop() name: string = "headline";
-  @Prop() cls: string;
+  @Prop() class: string;
 
   content: any;
 
@@ -21,8 +23,11 @@ export class SupersedeH1 {
   public renderService: Render = new Render();
   public replaceService: Replace = new Replace();
 
+  private originalTextContent: string;
+  private originalCssClasses: string;
+
   edit(mouseEvent, cls) {
-    this.replaceService.handle(this, 'input', mouseEvent, cls);
+    this.replaceService.handle2(this,  mouseEvent, cls);
   }
 
   stopEdit(event) {
@@ -36,37 +41,45 @@ export class SupersedeH1 {
 
   sendUpdate(text) {
     return fetch(this.backendService.getPostUrl(document, window, this.name), {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'no-cors', // no-cors, cors, *same-origin
-      //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      //credentials: 'same-origin', // include, *same-origin, omit
+      method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer', // no-referrer, *client
-      //body: JSON.stringify('{"content": "'+text+'"}'), // body data type must match "Content-Type" header
+      redirect: 'follow',
+      referrer: 'no-referrer',
       body: JSON.stringify({content: text})
     })
       .then(response => response.json());
 
   }
 
+  connectedCallback() {
+    console.log("h1: originalTextContent", this.el.innerHTML);
+    this.originalTextContent = this.el.innerHTML;
+    this.el.innerHTML = "";
+    this.originalCssClasses = this.el.className
+  }
+
   componentWillLoad() {
     return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
       .then(response => response.json())
       //.then(this.process)
-      .then(data => { this.handleData(data);});
+      .then(data => { this.handleData(data);})
+      .catch(error => {
+        console.error(error)
+        this.el.innerHTML = this.originalTextContent;
+      });
+
   }
 
   render() {
     //this.renderService.render("h1", this.content)
     if (this.readonly) {
-      return (<h1 class={this.cls} innerHTML={this.content.block}></h1>);
+      return (<h1 class={this.class} innerHTML={this.content.block}></h1>);
     } else {
-      return (<h1 class="editable" innerHTML={this.content.block}
-        onClick={(me) => this.edit(me, this.cls)}
+      return (<h1 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
+        onClick={(me) => this.edit(me, this.class)}
         onKeyPress={(me) => this.stopEdit(me)}
       >
       </h1>);
@@ -78,5 +91,10 @@ export class SupersedeH1 {
     if (this.content.token != null && this.content.token != "") {
       this.readonly = false;
     }
+  }
+
+  private getEditableClasses() {
+    console.log("editableClasses", this.originalCssClasses + " editable");
+    return this.originalCssClasses + " editable";
   }
 }

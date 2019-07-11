@@ -1,15 +1,14 @@
-import {  Prop, h, Element, Component } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 import Backend from '../../services/backend';
 import Render from '../../services/render';
 import Replace from "../../services/replace";
-//import { format } from '../../utils/utils';
 
 @Component({
-  tag: 'supersede-h2',
-  styleUrl: 'supersede-h2.css',
+  tag: 'supersede-p',
+  styleUrl: 'supersede-p.css',
   shadow: false
 })
-export class SupersedeH2  {
+export class SupersedeP {
 
   @Element() el: HTMLElement;
 
@@ -77,13 +76,13 @@ export class SupersedeH2  {
   render() {
     //this.renderService.render("h1", this.content)
     if (this.readonly) {
-      return (<h2 class={this.class} innerHTML={this.content.block}></h2>);
+      return (<p class={this.class} innerHTML={this.content.block}></p>);
     } else {
-      return (<h2 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
+      return (<p contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
         onClick={(me) => this.edit(me, this.class)}
         onKeyPress={(me) => this.stopEdit(me)}
       >
-      </h2>);
+      </p>);
     }
   }
 

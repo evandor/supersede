@@ -9,7 +9,7 @@ import Replace from "../../services/replace";
   shadow: false
 })
 export class SupersedeParagraph {
-  @Prop() key: string = "headline";
+  @Prop() name: string = "headline";
   @Prop() cls: string;
 
   content: any;
@@ -36,7 +36,7 @@ export class SupersedeParagraph {
   sendUpdate(text) {
     //var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
     //var backendurl = 'https://supersede.skysail.io/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
-    return fetch(this.backendService.getPostUrl(document, window, this.key), {
+    return fetch(this.backendService.getPostUrl(document, window, this.name), {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin
       //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -55,7 +55,7 @@ export class SupersedeParagraph {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getRetrieveUrl(document, window, this.key))
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
       .then(response => response.json())
       //.then(this.process)
       .then(data => { this.handleData(data);});

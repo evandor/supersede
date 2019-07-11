@@ -10,18 +10,24 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface SupersedeH1 {
-    'cls': string;
+    'class': string;
     'name': string;
   }
   interface SupersedeH2 {
-    'cls': string;
-    'path': string;
-    'snippetname': string;
-    'userid': string;
+    'class': string;
+    'name': string;
+  }
+  interface SupersedeP {
+    'class': string;
+    'name': string;
   }
   interface SupersedeParagraph {
     'cls': string;
-    'key': string;
+    'name': string;
+  }
+  interface SupersedeSpan {
+    'class': string;
+    'name': string;
   }
 }
 
@@ -40,38 +46,60 @@ declare global {
     new (): HTMLSupersedeH2Element;
   };
 
+  interface HTMLSupersedePElement extends Components.SupersedeP, HTMLStencilElement {}
+  var HTMLSupersedePElement: {
+    prototype: HTMLSupersedePElement;
+    new (): HTMLSupersedePElement;
+  };
+
   interface HTMLSupersedeParagraphElement extends Components.SupersedeParagraph, HTMLStencilElement {}
   var HTMLSupersedeParagraphElement: {
     prototype: HTMLSupersedeParagraphElement;
     new (): HTMLSupersedeParagraphElement;
   };
+
+  interface HTMLSupersedeSpanElement extends Components.SupersedeSpan, HTMLStencilElement {}
+  var HTMLSupersedeSpanElement: {
+    prototype: HTMLSupersedeSpanElement;
+    new (): HTMLSupersedeSpanElement;
+  };
   interface HTMLElementTagNameMap {
     'supersede-h1': HTMLSupersedeH1Element;
     'supersede-h2': HTMLSupersedeH2Element;
+    'supersede-p': HTMLSupersedePElement;
     'supersede-paragraph': HTMLSupersedeParagraphElement;
+    'supersede-span': HTMLSupersedeSpanElement;
   }
 }
 
 declare namespace LocalJSX {
   interface SupersedeH1 extends JSXBase.HTMLAttributes<HTMLSupersedeH1Element> {
-    'cls'?: string;
+    'class'?: string;
     'name'?: string;
   }
   interface SupersedeH2 extends JSXBase.HTMLAttributes<HTMLSupersedeH2Element> {
-    'cls'?: string;
-    'path'?: string;
-    'snippetname'?: string;
-    'userid'?: string;
+    'class'?: string;
+    'name'?: string;
+  }
+  interface SupersedeP extends JSXBase.HTMLAttributes<HTMLSupersedePElement> {
+    'class'?: string;
+    'name'?: string;
   }
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
     'cls'?: string;
-    'key'?: string;
+    'name'?: string;
+  }
+  interface SupersedeSpan extends JSXBase.HTMLAttributes<HTMLSupersedeSpanElement> {
+    'class'?: string;
+    'name'?: string;
   }
 
   interface IntrinsicElements {
     'supersede-h1': SupersedeH1;
     'supersede-h2': SupersedeH2;
+    'supersede-p': SupersedeP;
     'supersede-paragraph': SupersedeParagraph;
+    'supersede-span': SupersedeSpan;
   }
 }
 
