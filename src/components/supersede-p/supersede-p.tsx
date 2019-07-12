@@ -55,7 +55,6 @@ export class SupersedeP {
   }
 
   connectedCallback() {
-    console.log("hier1", this.el.className);
     this.originalTextContent = this.el.textContent;
     this.el.textContent = "";
     this.originalCssClasses = this.el.className
@@ -94,7 +93,6 @@ export class SupersedeP {
   }
 
   private getEditableClasses() {
-    console.log("editableClasses", this.originalCssClasses + " editable");
     return this.originalCssClasses + " editable";
   }
 }

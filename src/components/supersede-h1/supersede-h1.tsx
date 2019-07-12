@@ -94,7 +94,6 @@ export class SupersedeH1 {
   }
 
   private getEditableClasses() {
-    console.log("editableClasses", this.originalCssClasses + " editable");
     return this.originalCssClasses + " editable";
   }
 }

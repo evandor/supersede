@@ -29,6 +29,14 @@ export namespace Components {
     'class': string;
     'name': string;
   }
+  interface VamH1Save {
+    'class': string;
+    'name': string;
+  }
+  interface VamPSave {
+    'class': string;
+    'name': string;
+  }
   interface VamSpanSave {
     'class': string;
     'name': string;
@@ -68,6 +76,18 @@ declare global {
     new (): HTMLSupersedeSpanElement;
   };
 
+  interface HTMLVamH1SaveElement extends Components.VamH1Save, HTMLStencilElement {}
+  var HTMLVamH1SaveElement: {
+    prototype: HTMLVamH1SaveElement;
+    new (): HTMLVamH1SaveElement;
+  };
+
+  interface HTMLVamPSaveElement extends Components.VamPSave, HTMLStencilElement {}
+  var HTMLVamPSaveElement: {
+    prototype: HTMLVamPSaveElement;
+    new (): HTMLVamPSaveElement;
+  };
+
   interface HTMLVamSpanSaveElement extends Components.VamSpanSave, HTMLStencilElement {}
   var HTMLVamSpanSaveElement: {
     prototype: HTMLVamSpanSaveElement;
@@ -79,6 +99,8 @@ declare global {
     'supersede-p': HTMLSupersedePElement;
     'supersede-paragraph': HTMLSupersedeParagraphElement;
     'supersede-span': HTMLSupersedeSpanElement;
+    'vam-h1-save': HTMLVamH1SaveElement;
+    'vam-p-save': HTMLVamPSaveElement;
     'vam-span-save': HTMLVamSpanSaveElement;
   }
 }
@@ -104,6 +126,14 @@ declare namespace LocalJSX {
     'class'?: string;
     'name'?: string;
   }
+  interface VamH1Save extends JSXBase.HTMLAttributes<HTMLVamH1SaveElement> {
+    'class'?: string;
+    'name'?: string;
+  }
+  interface VamPSave extends JSXBase.HTMLAttributes<HTMLVamPSaveElement> {
+    'class'?: string;
+    'name'?: string;
+  }
   interface VamSpanSave extends JSXBase.HTMLAttributes<HTMLVamSpanSaveElement> {
     'class'?: string;
     'name'?: string;
@@ -115,6 +145,8 @@ declare namespace LocalJSX {
     'supersede-p': SupersedeP;
     'supersede-paragraph': SupersedeParagraph;
     'supersede-span': SupersedeSpan;
+    'vam-h1-save': VamH1Save;
+    'vam-p-save': VamPSave;
     'vam-span-save': VamSpanSave;
   }
 }
