@@ -1,6 +1,6 @@
 {
   "name": "superseded",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
