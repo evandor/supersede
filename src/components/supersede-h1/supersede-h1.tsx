@@ -1,4 +1,4 @@
-import { Component, Prop, Element, h } from '@stencil/core';
+import {Component, Element, h, Prop} from '@stencil/core';
 import Backend from '../../services/backend';
 import Render from '../../services/render';
 import Replace from "../../services/replace";
@@ -27,10 +27,10 @@ export class SupersedeH1 {
   private originalCssClasses: string;
 
   edit(mouseEvent, cls) {
-    this.replaceService.handle2(this,  mouseEvent, cls);
+    this.replaceService.handle2(this, mouseEvent, cls);
   }
 
-  stopEdit(event) {
+  static stopEdit(event) {
     console.log("keypressed", event.keyCode);
     if (event.keyCode == 13) {
       var body = document.getElementsByTagName("body")[0];
@@ -55,7 +55,6 @@ export class SupersedeH1 {
   }
 
   connectedCallback() {
-    console.log("h1: originalTextContent", this.el.innerHTML);
     this.originalTextContent = this.el.innerHTML;
     this.el.innerHTML = "";
     this.originalCssClasses = this.el.className
@@ -64,23 +63,22 @@ export class SupersedeH1 {
   componentWillLoad() {
     return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
       .then(response => response.json())
-      //.then(this.process)
-      .then(data => { this.handleData(data);})
+      .then(data => {
+        this.handleData(data);
+      })
       .catch(error => {
-        console.error(error)
+        console.log("got error from backend", error);
         this.el.innerHTML = this.originalTextContent;
       });
-
   }
 
   render() {
-    //this.renderService.render("h1", this.content)
     if (this.readonly) {
-      return (<h1 class={this.class} innerHTML={this.content.block}></h1>);
+      return (<h1 class={this.class} innerHTML={this.content.block}/>);
     } else {
       return (<h1 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
-        onClick={(me) => this.edit(me, this.class)}
-        onKeyPress={(me) => this.stopEdit(me)}
+                  onClick={(me) => this.edit(me, this.class)}
+                  onKeyPress={(me) => SupersedeH1.stopEdit(me)}
       >
       </h1>);
     }
