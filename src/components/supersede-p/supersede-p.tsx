@@ -12,7 +12,6 @@ export class SupersedeP {
 
   @Element() el: HTMLElement;
 
-  @Prop() name: string = "headline";
   @Prop() class: string;
 
   content: any;
@@ -40,7 +39,7 @@ export class SupersedeP {
   }
 
   sendUpdate(text) {
-    return fetch(this.backendService.getPostUrl(document, window, this.name), {
+    return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST',
       mode: 'no-cors',
       headers: {
@@ -61,7 +60,7 @@ export class SupersedeP {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       //.then(this.process)
       .then(data => { this.handleData(data);})

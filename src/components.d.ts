@@ -11,39 +11,30 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface SupersedeH1 {
     'class': string;
-    'name': string;
   }
   interface SupersedeH2 {
     'class': string;
-    'name': string;
   }
   interface SupersedeP {
     'class': string;
-    'name': string;
   }
   interface SupersedeParagraph {
     'cls': string;
-    'name': string;
   }
   interface SupersedeSpan {
     'class': string;
-    'name': string;
   }
   interface VamH1Save {
     'class': string;
-    'name': string;
   }
   interface VamH2Save {
     'class': string;
-    'name': string;
   }
   interface VamPSave {
     'class': string;
-    'name': string;
   }
   interface VamSpanSave {
     'class': string;
-    'name': string;
   }
 }
 
@@ -119,39 +110,30 @@ declare global {
 declare namespace LocalJSX {
   interface SupersedeH1 extends JSXBase.HTMLAttributes<HTMLSupersedeH1Element> {
     'class'?: string;
-    'name'?: string;
   }
   interface SupersedeH2 extends JSXBase.HTMLAttributes<HTMLSupersedeH2Element> {
     'class'?: string;
-    'name'?: string;
   }
   interface SupersedeP extends JSXBase.HTMLAttributes<HTMLSupersedePElement> {
     'class'?: string;
-    'name'?: string;
   }
   interface SupersedeParagraph extends JSXBase.HTMLAttributes<HTMLSupersedeParagraphElement> {
     'cls'?: string;
-    'name'?: string;
   }
   interface SupersedeSpan extends JSXBase.HTMLAttributes<HTMLSupersedeSpanElement> {
     'class'?: string;
-    'name'?: string;
   }
   interface VamH1Save extends JSXBase.HTMLAttributes<HTMLVamH1SaveElement> {
     'class'?: string;
-    'name'?: string;
   }
   interface VamH2Save extends JSXBase.HTMLAttributes<HTMLVamH2SaveElement> {
     'class'?: string;
-    'name'?: string;
   }
   interface VamPSave extends JSXBase.HTMLAttributes<HTMLVamPSaveElement> {
     'class'?: string;
-    'name'?: string;
   }
   interface VamSpanSave extends JSXBase.HTMLAttributes<HTMLVamSpanSaveElement> {
     'class'?: string;
-    'name'?: string;
   }
 
   interface IntrinsicElements {

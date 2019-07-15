@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import {Component, Prop, h, Element} from '@stencil/core';
 import Backend from '../../services/backend';
 import Render from '../../services/render';
 import Replace from "../../services/replace";
@@ -9,7 +9,9 @@ import Replace from "../../services/replace";
   shadow: false
 })
 export class SupersedeParagraph {
-  @Prop() name: string = "headline";
+
+  @Element() el: HTMLElement;
+
   @Prop() cls: string;
 
   content: any;
@@ -36,7 +38,7 @@ export class SupersedeParagraph {
   sendUpdate(text) {
     //var backendurl = 'http://localhost:6204/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
     //var backendurl = 'https://supersede.skysail.io/api/websites/' + this.userid + '/' + btoa(window.location.pathname) + '/' + this.snippetname;
-    return fetch(this.backendService.getPostUrl(document, window, this.name), {
+    return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'no-cors', // no-cors, cors, *same-origin
       //cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -55,7 +57,7 @@ export class SupersedeParagraph {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       //.then(this.process)
       .then(data => { this.handleData(data);});

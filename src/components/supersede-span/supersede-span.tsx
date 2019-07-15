@@ -12,7 +12,6 @@ export class SupersedeSpan {
 
   @Element() el: HTMLElement;
 
-  @Prop() name: string = "headline";
   @Prop() class: string;
 
   content: any;
@@ -30,7 +29,7 @@ export class SupersedeSpan {
     this.replaceService.handle2(this,  mouseEvent, cls);
   }
 
-  stopEdit(event) {
+  static stopEdit(event) {
     console.log("keypressed", event.keyCode);
     if (event.keyCode == 13) {
       var body = document.getElementsByTagName("body")[0];
@@ -40,7 +39,7 @@ export class SupersedeSpan {
   }
 
   sendUpdate(text) {
-    return fetch(this.backendService.getPostUrl(document, window, this.name), {
+    return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST',
       mode: 'no-cors',
       headers: {
@@ -61,7 +60,7 @@ export class SupersedeSpan {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getRetrieveUrl(document, window, this.name))
+    return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       //.then(this.process)
       .then(data => { this.handleData(data);})
@@ -79,7 +78,7 @@ export class SupersedeSpan {
     } else {
       return (<span contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
         onClick={(me) => this.edit(me, this.class)}
-        onKeyPress={(me) => this.stopEdit(me)}
+        onKeyPress={(me) => SupersedeSpan.stopEdit(me)}
       >
       </span>);
     }

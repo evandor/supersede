@@ -12,7 +12,6 @@ export class VamPSave {
 
   @Element() el: HTMLElement;
 
-  @Prop() name: string = "headline";
   @Prop() class: string;
 
   content: any;
@@ -31,7 +30,7 @@ export class VamPSave {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getPostUrl(document, window, this.name), {
+    return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST',
       mode: 'no-cors',
       headers: {

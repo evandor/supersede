@@ -9,7 +9,7 @@ describe('supersede-paragraph', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('renders changes to the name data', async () => {
+  it('renders changes to the id data', async () => {
     const page = await newE2EPage();
 
     await page.setContent('<supersede-paragraph></supersede-paragraph>');

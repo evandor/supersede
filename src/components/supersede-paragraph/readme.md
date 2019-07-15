@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default      |
-| -------- | --------- | ----------- | -------- | ------------ |
-| `cls`    | `cls`     |             | `string` | `undefined`  |
-| `name`   | `name`    |             | `string` | `"headline"` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `cls`    | `cls`     |             | `string` | `undefined` |
 
 
 ----------------------------------------------
