@@ -54,12 +54,13 @@ export class SupersedeH1 {
   }
 
   connectedCallback() {
-    this.originalTextContent = this.el.innerHTML;
+    //this.originalTextContent = this.el.innerHTML;
     this.el.innerHTML = "";
     this.originalCssClasses = this.el.className
   }
 
   componentWillLoad() {
+    console.error("hierererere!!!!")
     return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       .then(data => {
@@ -84,6 +85,8 @@ export class SupersedeH1 {
   }
 
   private handleData(data) {
+    console.error ("handleData", data);
+    console.error ("this.content", this);
     this.content = data;
     if (this.content.token != null && this.content.token != "") {
       this.readonly = false;

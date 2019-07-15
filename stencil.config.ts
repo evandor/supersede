@@ -13,6 +13,7 @@ export const config: Config = {
     reloadStrategy: 'hmr',
     port: 4444
   },
+  globalStyle: 'src/global/app.css',
   outputTargets: [
     {
       type: 'dist',

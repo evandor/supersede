@@ -6,8 +6,24 @@ export default class Backend {
 
   getRetrieveUrl(document: Document, window: Window, key: string): RequestInfo {
     console.log('My environment variable value:', this.backendUrl);
-    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id")
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id");
     return this.backendUrl + '/api/websites/' + projectId + '/' + key + window.location.search;
+  }
+
+  get2(document: Document, window: Window, key: string, callback: any) {
+    console.log('My environment variable value:', this.backendUrl);
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id");
+    var url = this.backendUrl + '/api/websites/' + projectId + '/' + key + window.location.search;
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        //this.handleData(data);
+        callback(data)
+      })
+      .catch(error => {
+        console.log("got error from backend", error);
+        //this.el.innerHTML = this.originalTextContent;
+      });
   }
 
   async get(document: Document, window: Window, snippet: string) {
