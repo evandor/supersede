@@ -4,11 +4,10 @@ import Render from '../../services/render';
 import Replace from "../../services/replace";
 
 @Component({
-  tag: 'supersede-h1',
-  styleUrl: 'supersede-h1.css',
+  tag: 'vam-h3',
   shadow: false
 })
-export class SupersedeH1 {
+export class VamH3 {
 
   @Element() el: HTMLElement;
 
@@ -29,15 +28,6 @@ export class SupersedeH1 {
     this.replaceService.handle2(this, mouseEvent, cls);
   }
 
-  static stopEdit(event) {
-    console.log("keypressed", event.keyCode);
-    if (event.keyCode == 13) {
-      var body = document.getElementsByTagName("body")[0];
-      body.focus();
-      return false;
-    }
-  }
-
   sendUpdate(text) {
     return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST',
@@ -54,13 +44,11 @@ export class SupersedeH1 {
   }
 
   connectedCallback() {
-    //this.originalTextContent = this.el.innerHTML;
     this.el.innerHTML = "";
     this.originalCssClasses = this.el.className
   }
 
   componentWillLoad() {
-    console.log("hierererere!!!!")
     return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       .then(data => {
@@ -74,18 +62,16 @@ export class SupersedeH1 {
 
   render() {
     if (this.readonly) {
-      return (<h1 class={this.class} innerHTML={this.content.block}/>);
+      return (<h3 class={this.class} innerHTML={this.content.block}/>);
     } else {
-      return <h1 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
+      return <h3 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
                   onClick={(me) => this.edit(me, this.class)}
-                  onKeyPress={(me) => SupersedeH1.stopEdit(me)}
       >
-      </h1>
+      </h3>
     }
   }
 
   private handleData(data) {
-    console.log ("handleData", data);
     this.content = data;
     if (this.content.token != null && this.content.token != "") {
       this.readonly = false;

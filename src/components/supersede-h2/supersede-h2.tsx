@@ -29,14 +29,14 @@ export class SupersedeH2  {
     this.replaceService.handle2(this, mouseEvent, cls);
   }
 
-  static stopEdit(event) {
+  /*static stopEdit(event) {
     console.log("keypressed", event.keyCode);
     if (event.keyCode == 13) {
       var body = document.getElementsByTagName("body")[0];
       body.focus();
       return false;
     }
-  }
+  }*/
 
   sendUpdate(text) {
     return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
@@ -77,7 +77,6 @@ export class SupersedeH2  {
     } else {
       return (<h2 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
         onClick={(me) => this.edit(me, this.class)}
-        onKeyPress={(me) => SupersedeH2.stopEdit(me)}
       >
       </h2>);
     }

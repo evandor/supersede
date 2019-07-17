@@ -45,6 +45,12 @@ npm test
 
 Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
 
+Run with local bakend 
+
+```bash
+npm run dev
+```
+
 
 ## Naming Components
 

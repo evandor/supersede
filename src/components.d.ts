@@ -24,10 +24,27 @@ export namespace Components {
   interface SupersedeSpan {
     'class': string;
   }
+  interface VamA {
+    'class': string;
+    'href': string;
+    'target': string;
+  }
   interface VamH1Save {
     'class': string;
   }
   interface VamH2Save {
+    'class': string;
+  }
+  interface VamH3 {
+    'class': string;
+  }
+  interface VamH3Save {
+    'class': string;
+  }
+  interface VamH4 {
+    'class': string;
+  }
+  interface VamH4Save {
     'class': string;
   }
   interface VamPSave {
@@ -71,6 +88,12 @@ declare global {
     new (): HTMLSupersedeSpanElement;
   };
 
+  interface HTMLVamAElement extends Components.VamA, HTMLStencilElement {}
+  var HTMLVamAElement: {
+    prototype: HTMLVamAElement;
+    new (): HTMLVamAElement;
+  };
+
   interface HTMLVamH1SaveElement extends Components.VamH1Save, HTMLStencilElement {}
   var HTMLVamH1SaveElement: {
     prototype: HTMLVamH1SaveElement;
@@ -81,6 +104,30 @@ declare global {
   var HTMLVamH2SaveElement: {
     prototype: HTMLVamH2SaveElement;
     new (): HTMLVamH2SaveElement;
+  };
+
+  interface HTMLVamH3Element extends Components.VamH3, HTMLStencilElement {}
+  var HTMLVamH3Element: {
+    prototype: HTMLVamH3Element;
+    new (): HTMLVamH3Element;
+  };
+
+  interface HTMLVamH3SaveElement extends Components.VamH3Save, HTMLStencilElement {}
+  var HTMLVamH3SaveElement: {
+    prototype: HTMLVamH3SaveElement;
+    new (): HTMLVamH3SaveElement;
+  };
+
+  interface HTMLVamH4Element extends Components.VamH4, HTMLStencilElement {}
+  var HTMLVamH4Element: {
+    prototype: HTMLVamH4Element;
+    new (): HTMLVamH4Element;
+  };
+
+  interface HTMLVamH4SaveElement extends Components.VamH4Save, HTMLStencilElement {}
+  var HTMLVamH4SaveElement: {
+    prototype: HTMLVamH4SaveElement;
+    new (): HTMLVamH4SaveElement;
   };
 
   interface HTMLVamPSaveElement extends Components.VamPSave, HTMLStencilElement {}
@@ -100,8 +147,13 @@ declare global {
     'supersede-p': HTMLSupersedePElement;
     'supersede-paragraph': HTMLSupersedeParagraphElement;
     'supersede-span': HTMLSupersedeSpanElement;
+    'vam-a': HTMLVamAElement;
     'vam-h1-save': HTMLVamH1SaveElement;
     'vam-h2-save': HTMLVamH2SaveElement;
+    'vam-h3': HTMLVamH3Element;
+    'vam-h3-save': HTMLVamH3SaveElement;
+    'vam-h4': HTMLVamH4Element;
+    'vam-h4-save': HTMLVamH4SaveElement;
     'vam-p-save': HTMLVamPSaveElement;
     'vam-span-save': HTMLVamSpanSaveElement;
   }
@@ -123,10 +175,27 @@ declare namespace LocalJSX {
   interface SupersedeSpan extends JSXBase.HTMLAttributes<HTMLSupersedeSpanElement> {
     'class'?: string;
   }
+  interface VamA extends JSXBase.HTMLAttributes<HTMLVamAElement> {
+    'class'?: string;
+    'href'?: string;
+    'target'?: string;
+  }
   interface VamH1Save extends JSXBase.HTMLAttributes<HTMLVamH1SaveElement> {
     'class'?: string;
   }
   interface VamH2Save extends JSXBase.HTMLAttributes<HTMLVamH2SaveElement> {
+    'class'?: string;
+  }
+  interface VamH3 extends JSXBase.HTMLAttributes<HTMLVamH3Element> {
+    'class'?: string;
+  }
+  interface VamH3Save extends JSXBase.HTMLAttributes<HTMLVamH3SaveElement> {
+    'class'?: string;
+  }
+  interface VamH4 extends JSXBase.HTMLAttributes<HTMLVamH4Element> {
+    'class'?: string;
+  }
+  interface VamH4Save extends JSXBase.HTMLAttributes<HTMLVamH4SaveElement> {
     'class'?: string;
   }
   interface VamPSave extends JSXBase.HTMLAttributes<HTMLVamPSaveElement> {
@@ -142,8 +211,13 @@ declare namespace LocalJSX {
     'supersede-p': SupersedeP;
     'supersede-paragraph': SupersedeParagraph;
     'supersede-span': SupersedeSpan;
+    'vam-a': VamA;
     'vam-h1-save': VamH1Save;
     'vam-h2-save': VamH2Save;
+    'vam-h3': VamH3;
+    'vam-h3-save': VamH3Save;
+    'vam-h4': VamH4;
+    'vam-h4-save': VamH4Save;
     'vam-p-save': VamPSave;
     'vam-span-save': VamSpanSave;
   }

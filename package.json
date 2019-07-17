@@ -17,6 +17,7 @@
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --watch --serve",
+    "dev": "stencil build --dev",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
