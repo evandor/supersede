@@ -29,15 +29,6 @@ export class SupersedeH1 {
     this.replaceService.handle2(this, mouseEvent, cls);
   }
 
-  static stopEdit(event) {
-    console.log("keypressed", event.keyCode);
-    if (event.keyCode == 13) {
-      var body = document.getElementsByTagName("body")[0];
-      body.focus();
-      return false;
-    }
-  }
-
   sendUpdate(text) {
     return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
       method: 'POST',
@@ -54,13 +45,12 @@ export class SupersedeH1 {
   }
 
   connectedCallback() {
-    //this.originalTextContent = this.el.innerHTML;
+    this.originalTextContent = this.el.innerHTML;
     this.el.innerHTML = "";
     this.originalCssClasses = this.el.className
   }
 
   componentWillLoad() {
-    console.log("hierererere!!!!")
     return fetch(this.backendService.getRetrieveUrl(document, window, this.el.id))
       .then(response => response.json())
       .then(data => {
@@ -76,11 +66,7 @@ export class SupersedeH1 {
     if (this.readonly) {
       return (<h1 class={this.class} innerHTML={this.content.block}/>);
     } else {
-      return <h1 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block}
-                  onClick={(me) => this.edit(me, this.class)}
-                  onKeyPress={(me) => SupersedeH1.stopEdit(me)}
-      >
-      </h1>
+      return <h1 contenteditable="true" class={this.getEditableClasses()} innerHTML={this.content.block} onClick={(me) => this.edit(me, this.class)}/>
     }
   }
 

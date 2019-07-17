@@ -10,6 +10,8 @@
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
 | `class`  | `class`   |             | `string` | `undefined` |
+| `href`   | `href`    |             | `string` | `"#"`       |
+| `target` | `target`  |             | `string` | `"_self"`   |
 
 
 ----------------------------------------------
