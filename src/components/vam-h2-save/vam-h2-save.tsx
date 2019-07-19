@@ -30,7 +30,7 @@ export class VamH2Save {
   }
 
   componentWillLoad() {
-    return fetch(this.backendService.getPostUrl(document, window, this.el.id), {
+    return fetch(Backend.getPostUrl(document, window, this.el.id), {
       method: 'POST',
       mode: 'no-cors',
       headers: {

@@ -1,17 +1,16 @@
-import {EnvironmentConfigService} from "./environment/environment-config.service";
 
 export default class Backend {
 
-  backendUrl: string = EnvironmentConfigService.getInstance().get('backendUrl');
+  //backendUrl: string = EnvironmentConfigService.getInstance().get('backendUrl');
 
-  getRetrieveUrl(document: Document, window: Window, key: string): RequestInfo {
-    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id");
-    return this.backendUrl + '/api/websites/' + projectId + '/' + key + window.location.search;
+  static getRetrieveUrl(document: Document, window: Window, key: string): RequestInfo {
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-vam-project-id");
+    return this.getBackendUrl(document) + '/api/websites/' + projectId + '/' + key + window.location.search;
   }
 
-  get2(document: Document, window: Window, key: string, callback: any) {
-    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id");
-    var url = this.backendUrl + '/api/websites/' + projectId + '/' + key + window.location.search;
+  static get2(document: Document, window: Window, key: string, callback: any) {
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-vam-project-id");
+    var url = this.getBackendUrl(document) + '/api/websites/' + projectId + '/' + key + window.location.search;
     return fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -25,17 +24,23 @@ export default class Backend {
   }
 
   async get(document: Document, window: Window, snippet: string) {
-    return fetch(this.getRetrieveUrl(document, window, snippet))
+    return fetch(Backend.getRetrieveUrl(document, window, snippet))
       .then(response => response.json())
 
   }
 
-  getPostUrl(document: Document, window: Window, key: string) {
+  static getPostUrl(document: Document, window: Window, key: string) {
     var pathname = window.location.pathname;
-    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-supersede-project-id")
-    var backendurl = this.backendUrl + '/api/websites/' + projectId + '/' + btoa(pathname) + '/' + key ;
-    return backendurl;
-
-   // 'https://supersede.skysail.io/api/websites/' + this.pro + '/' + btoa(window.location.pathname) + '/' + this.key;
+    var projectId = document.getElementsByTagName("body")[0].getAttribute("data-vam-project-id")
+    return  this.getBackendUrl(document) + '/api/websites/' + projectId + '/' + btoa(pathname) + '/' + key ;
   }
+
+  private static getBackendUrl(document: Document) {
+    var backendUrl = document.getElementsByTagName("body")[0].getAttribute("data-vam-backend-url");
+    if (!backendUrl) {
+      return "https://supersede.skysail.io"
+    }
+    return backendUrl;
+  }
+
 }
